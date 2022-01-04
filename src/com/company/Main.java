@@ -13,105 +13,121 @@ public class Main {
         int r2pos = 2;
         int r3pos = 3;
 
-        char letter = 'G';
+        // INPUT KEY
+        char letter = 'R';
         int index = 0;
+        index = getLetterIndex(alphabet, letter);
 
-        System.out.println(letter);
+        System.out.print(letter);
+        System.out.println(index);
+
+        // ROTOR 1
+        index += r1pos;
+        index = checkIndexRange(index);
+        letter = alphabet[index];
+
+        System.out.print(letter);
         System.out.println(index);
 
         index = getLetterIndex(alphabet, letter);
-        letter = alphabet[index+r1pos]; //B
+        letter = rotorI[index];
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
+        // ROTOR 2
         index = getLetterIndex(alphabet, letter);
-        letter = rotorI[index]; //K
-
-        System.out.println(letter);
-        System.out.println(index);
-
-        index = getLetterIndex(alphabet, letter);
-        System.out.println(index);
-
         index+= r2pos - r1pos;
-        letter = alphabet[index]; //L
+        index = checkIndexRange(index);
 
-        System.out.println(letter);
+        letter = alphabet[index];
+
+        System.out.print(letter);
         System.out.println(index);
 
-        letter = rotorII[index]; //H
+        letter = rotorII[index];
         index = getLetterIndex(alphabet, letter);
-        System.out.println(letter);
+
+        System.out.print(letter);
         System.out.println(index);
 
+        // ROTOR 3
         index+= r2pos - r1pos;
-        letter = alphabet[index]; //I
+        index = checkIndexRange(index);
+        letter = alphabet[index];
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
         index = getLetterIndex(alphabet, letter);
         letter = rotorIII[index];
         index = getLetterIndex(alphabet, letter);
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
-        index+= 0 - r3pos;
+        // REFLECTOR
+        index-= r3pos;
+        index = checkIndexRange(index);
         letter = alphabet[index];
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
         letter = reflector[index];
         index = getLetterIndex(alphabet, letter);
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
+        // ROTOR 3
         index+= r3pos;
+        index = checkIndexRange(index);
         letter = alphabet[index];
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
         index = getLetterIndex(rotorIII, letter);
         letter = alphabet[index];
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
-        //index = getLetterIndex(rotorII, letter);
-
+        // ROTOR 2
         index+= r2pos - r3pos;
+        index = checkIndexRange(index);
         letter = alphabet[index];
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
         index = getLetterIndex(rotorII, letter);
         letter = alphabet[index];
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
+        // ROTOR 1
         index+= r1pos - r2pos;
+        index = checkIndexRange(index);
         letter = alphabet[index];
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
         index = getLetterIndex(rotorI, letter);
         letter = alphabet[index];
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
 
-        index+= 0 - r1pos;
+        // OUTPUT KEY
+        index-= r1pos;
+        index = checkIndexRange(index);
         letter = alphabet[index];
 
-        System.out.println(letter);
+        System.out.print(letter);
         System.out.println(index);
     }
 
@@ -120,9 +136,18 @@ public class Main {
         for(int i=0; i<arr.length; i++) {
             if(arr[i]==letter) {
                 index = i;
-                //System.out.println("found");
             }
         }
         return index;
+    }
+
+    public static int checkIndexRange(int index) {
+        if(index > 25) {
+            return (index % 25) - 1;
+        } else if(index < 0) {
+            return 26 + index;
+        } else {
+            return index;
+        }
     }
 }
